@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Files have been uploaded successfully!";
     } else {
         echo "Failed to upload files.";
+        die();
     }
 
     $sql = "INSERT INTO schools (school_name, principal_name, contact_info, cares_scheme, principal_phone, total_students, total_systems, system_os, system_manufacturer, ethernet_connection, internet_connection, online_assessments, internal_storage, processor, ram, applications, other_apps, lecture_timings, lab_timings, transportation_issues, surrounding_environment, environment_cleanliness, parking_space, residential_areas, shortcomings, lab_picture, environment_picture, school_picture) 
