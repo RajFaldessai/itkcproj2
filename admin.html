@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITKC - Admin Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="dashboard.png" alt="Dashboard Image" class="dashboard-img">
+        <nav>
+            <img src="logo.png" alt="Logo" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="form.html">Form</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="admin.html">Admin Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="admin_login.php" method="POST">
+            <h1>Admin Login</h1>
+            <label for="admin_username">Username:</label>
+            <input type="text" id="admin_username" name="admin_username" required>
+            <label for="admin_password">Password:</label>
+            <input type="password" id="admin_password" name="admin_password" required>
+            <button type="submit">Login</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 IT Knowledge Centre. All rights reserved.</p>
+    </footer>
+</body>
+</html>
