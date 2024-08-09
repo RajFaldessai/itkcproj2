@@ -10,6 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $principal_name = $_POST['principal_name'];
     $contact_info = $_POST['contact_info'];
     $cares_scheme = $_POST['cares_scheme'];
+    $road_name = $_POST['road_name'];
+    $city_town = $_POST['city_town'];
+    $pincode = $_POST['pincode'];
+    $district = $_POST['district'];
     $principal_phone = $_POST['principal_phone'];
     $total_students = $_POST['total_students'];
     $total_systems = $_POST['total_systems'];
@@ -31,37 +35,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $parking_space = $_POST['parking_space'];
     $residential_areas = $_POST['residential_areas'];
     $shortcomings = $_POST['shortcomings'];
-
     // Handle file uploads
     $lab_picture = $_FILES['lab_picture']['name'];
     $env_picture = $_FILES['env_picture']['name'];
     $school_picture = $_FILES['school_picture']['name'];
-
+    
     $lab_tmp_name = $_FILES['lab_picture']['tmp_name'];
     $env_tmp_name = $_FILES['env_picture']['tmp_name'];
     $school_tmp_name = $_FILES['school_picture']['tmp_name'];
-
+    
     $uploads_dir = 'uploads';
     $lab_target_file = $uploads_dir . '/' . basename($lab_picture);
     $env_target_file = $uploads_dir . '/' . basename($env_picture);
     $school_target_file = $uploads_dir . '/' . basename($school_picture);
-
+    
     if (move_uploaded_file($lab_tmp_name, $lab_target_file) && 
-        move_uploaded_file($env_tmp_name, $env_target_file) && 
-        move_uploaded_file($school_tmp_name, $school_target_file)) {
+    move_uploaded_file($env_tmp_name, $env_target_file) && 
+    move_uploaded_file($school_tmp_name, $school_target_file)) {
         echo "Files have been uploaded successfully!";
     } else {
         echo "Failed to upload files.";
-        die();
     }
+    
+    $sql = "INSERT INTO schools (school_name, principal_name, contact_info, cares_scheme, road_name , city_town , pincode , district , principal_phone, total_students, total_systems, system_os, system_manufacturer, ethernet_connection, internet_connection, online_assessments, internal_storage, processor, ram, applications, other_apps, lecture_timings, lab_timings, transportation_issues, surrounding_environment, environment_cleanliness, parking_space, residential_areas, shortcomings, lab_picture, environment_picture, school_picture) 
+            VALUES ('$school_name', '$principal_name', '$contact_info', '$cares_scheme','$road_name' , '$city_town' , '$pincode' , '$district', '$principal_phone', '$total_students', '$total_systems', '$system_os', '$system_manufacturer', '$ethernet_connection', '$internet_connection', '$online_assessments', '$internal_storage', '$processor', '$ram', '$applications', '$other_apps', '$lecture_timings', '$lab_timings', '$transportation_issues', '$surrounding_environment', '$environment_cleanliness', '$parking_space', '$residential_areas', '$shortcomings', '$lab_picture', '$env_picture', '$school_picture')";
 
-    $sql = "INSERT INTO schools (school_name, principal_name, contact_info, cares_scheme, principal_phone, total_students, total_systems, system_os, system_manufacturer, ethernet_connection, internet_connection, online_assessments, internal_storage, processor, ram, applications, other_apps, lecture_timings, lab_timings, transportation_issues, surrounding_environment, environment_cleanliness, parking_space, residential_areas, shortcomings, lab_picture, environment_picture, school_picture) 
-            VALUES ('$school_name', '$principal_name', '$contact_info', '$cares_scheme', '$principal_phone', '$total_students', '$total_systems', '$system_os', '$system_manufacturer', '$ethernet_connection', '$internet_connection', '$online_assessments', '$internal_storage', '$processor', '$ram', '$applications', '$other_apps', '$lecture_timings', '$lab_timings', '$transportation_issues', '$surrounding_environment', '$environment_cleanliness', '$parking_space', '$residential_areas', '$shortcomings', '$lab_picture', '$env_picture', '$school_picture')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Survey submitted successfully!";
+if ($conn->query($sql) === TRUE) {
+    echo "Survey submitted successfully!";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
+        die();
     }
 
     // Generate PDF
@@ -74,6 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $html .= '<p><strong>Principal Name:</strong> ' . $principal_name . '</p>';
     $html .= '<p><strong>Contact Info:</strong> ' . $contact_info . '</p>';
     $html .= '<p><strong>Is the school a beneficiary of the CARES SCHEME:</strong> ' . $cares_scheme . '</p>';
+    $html .= '<p><strong>Roadname/area/colony:</strong> ' . $road_name . '</p>';
+    $html .= '<p><strong>City/Town:</strong> ' . $city_town . '</p>';
+    $html .= '<p><strong>Pincode:</strong> ' . $pincode . '</p>';
+    $html .= '<p><strong>District:</strong> ' . $district . '</p>';
     $html .= '<p><strong>Principal Phone:</strong> ' . $principal_phone . '</p>';
     $html .= '<p><strong>Total Students:</strong> ' . $total_students . '</p>';
     $html .= '<p><strong>Total Systems:</strong> ' . $total_systems . '</p>';
@@ -98,7 +105,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $html .= '<p><strong>Lab Picture:</strong> <img src="uploads/' . $lab_picture . '" alt="Lab Picture" style="max-width: 300px;"></p>';
     $html .= '<p><strong>Environment Picture:</strong> <img src="uploads/' . $env_picture . '" alt="Environment Picture" style="max-width: 300px;"></p>';
     $html .= '<p><strong>School Picture:</strong> <img src="uploads/' . $school_picture . '" alt="School Picture" style="max-width: 300px;"></p>';
-
+    
+    $projectRoot = 'http://localhost/itkcproj-main/uploads/';
+    // $projectRoot = 'localhost/itkcproj-main/uploads/';
+    
+    // Include images if present using absolute file paths
+    if (!empty($school['lab_picture'])) {
+        $html .= '<p><strong>Lab Picture:</strong> <img src="' . $projectRoot . $lab_picture . '" alt="Lab Picture" style="max-width: 300px;"></p>';
+    }
+    if (!empty($school['environment_picture'])) {
+        $html .= '<p><strong>Environment Picture:</strong> <img src="' . $projectRoot . $env_picture . '" alt="Environment Picture" style="max-width: 300px;"></p>';
+    }
+    if (!empty($school['school_picture'])) {
+        $html .= '<p><strong>School Picture:</strong> <img src="' . $projectRoot . $school_picture . '" alt="School Picture" style="max-width: 300px;"></p>';
+    }
+    // echo "<br>skdhb";
+    // die();
+    
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'landscape');
     $dompdf->render();

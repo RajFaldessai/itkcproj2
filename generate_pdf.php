@@ -34,6 +34,10 @@ if (isset($_GET['id'])) {
         $html .= '<p><strong>Principal Name:</strong> ' . $school['principal_name'] . '</p>';
         $html .= '<p><strong>Contact Info:</strong> ' . $school['contact_info'] . '</p>';
         $html .= '<p><strong>CARES Scheme Beneficiary:</strong> ' . $school['cares_scheme'] . '</p>';
+        $html .= '<p><strong>Roadname/area/colony:</strong> ' . $school['road_name'] . '</p>';
+        $html .= '<p><strong>City/Town:</strong> ' . $school['city_town'] . '</p>';
+        $html .= '<p><strong>Pincode:</strong> ' . $school['pincode'] . '</p>';
+        $html .= '<p><strong>District:</strong> ' . $school['district'] . '</p>';
         $html .= '<p><strong>Principal Phone:</strong> ' . $school['principal_phone'] . '</p>';
         $html .= '<p><strong>Total Students:</strong> ' . $school['total_students'] . '</p>';
         $html .= '<p><strong>Total Systems:</strong> ' . $school['total_systems'] . '</p>';
