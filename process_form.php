@@ -7,6 +7,7 @@ use Dompdf\Options;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $school_name = $_POST['school_name'];
+    $regis_no = $_POST['regis_no'];
     $principal_name = $_POST['principal_name'];
     $contact_info = $_POST['contact_info'];
     $cares_scheme = $_POST['cares_scheme'];
@@ -57,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Failed to upload files.";
     }
     
-    $sql = "INSERT INTO schools (school_name, principal_name, contact_info, cares_scheme, road_name , city_town , pincode , district , principal_phone, total_students, total_systems, system_os, system_manufacturer, ethernet_connection, internet_connection, online_assessments, internal_storage, processor, ram, applications, other_apps, lecture_timings, lab_timings, transportation_issues, surrounding_environment, environment_cleanliness, parking_space, residential_areas, shortcomings, lab_picture, environment_picture, school_picture) 
-            VALUES ('$school_name', '$principal_name', '$contact_info', '$cares_scheme','$road_name' , '$city_town' , '$pincode' , '$district', '$principal_phone', '$total_students', '$total_systems', '$system_os', '$system_manufacturer', '$ethernet_connection', '$internet_connection', '$online_assessments', '$internal_storage', '$processor', '$ram', '$applications', '$other_apps', '$lecture_timings', '$lab_timings', '$transportation_issues', '$surrounding_environment', '$environment_cleanliness', '$parking_space', '$residential_areas', '$shortcomings', '$lab_picture', '$env_picture', '$school_picture')";
+    $sql = "INSERT INTO schools (school_name,regis_no, principal_name, contact_info, cares_scheme, road_name , city_town , pincode , district , principal_phone, total_students, total_systems, system_os, system_manufacturer, ethernet_connection, internet_connection, online_assessments, internal_storage, processor, ram, applications, other_apps, lecture_timings, lab_timings, transportation_issues, surrounding_environment, environment_cleanliness, parking_space, residential_areas, shortcomings, lab_picture, environment_picture, school_picture) 
+            VALUES ('$school_name', '$regis_no', '$principal_name', '$contact_info', '$cares_scheme','$road_name' , '$city_town' , '$pincode' , '$district', '$principal_phone', '$total_students', '$total_systems', '$system_os', '$system_manufacturer', '$ethernet_connection', '$internet_connection', '$online_assessments', '$internal_storage', '$processor', '$ram', '$applications', '$other_apps', '$lecture_timings', '$lab_timings', '$transportation_issues', '$surrounding_environment', '$environment_cleanliness', '$parking_space', '$residential_areas', '$shortcomings', '$lab_picture', '$env_picture', '$school_picture')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Survey submitted successfully!";
@@ -74,6 +75,7 @@ if ($conn->query($sql) === TRUE) {
 
     $html = '<h1>Survey Report</h1>';
     $html .= '<p><strong>School Name:</strong> ' . $school_name . '</p>';
+    $html .= '<p><strong>School Registration Number:</strong> ' . $regis_no . '</p>';
     $html .= '<p><strong>Principal Name:</strong> ' . $principal_name . '</p>';
     $html .= '<p><strong>Contact Info:</strong> ' . $contact_info . '</p>';
     $html .= '<p><strong>Is the school a beneficiary of the CARES SCHEME:</strong> ' . $cares_scheme . '</p>';
