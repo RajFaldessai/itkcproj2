@@ -23,35 +23,40 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="coursestable.html">Courses</a></li>
-
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contact</a></li>
-                
             </ul>
         </nav>
     </header>
     <main>
-        <!-- Full-page image placeholder -->
-        <section class="full-page-image">
-            <img src="./home.jpeg" alt="Full Page Image" class="full-image" style = " width: 100% ;">
-        </section>
-        <section id="about">
+        <!-- Carousel Section -->
+        <section class="carousel">
+            <div class="carousel-images">
+                <img src="./home.jpeg" alt="Image 1">
+                <img src="./home2.jpeg" alt="Image 2">
+                <img src="./home3.jpeg" alt="Image 3">
+            </div>
             
-            <div class="about-text">
-                <img src="./itkclogo2.png" alt="Logo" class="about-logo" style = " width: 200px; height: 190px;" >
-                <div class="about-text-in">
-                    <h1>IT Knowledge Center</h1>
-                <p>To empower individuals and communities throughout enhanced access to information, education, and communication facilities. The centers provide job-oriented IT training to the local youth. IT training shall be imparted in two categories:
+            <div class="carousel-indicators">
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+            </div>
+        </section>
+
+        <section id="about">
+            <img src="./itkclogo2.png" alt="Logo" class="about-logo">
+            <div class="about-text-in">
+                <h1>IT Knowledge Center</h1>
+                <p>To empower individuals and communities through enhanced access to information, education, and communication facilities. The centers provide job-oriented IT training to local youth. IT training shall be imparted in two categories:</p>
                 <ul>
                     <li>General students.</li>
                     <li>Free training to SC/ST students under the scheme.</li>
-                    <li>Free training to students from area affected by mining belt.</li>
+                    <li>Free training to students from areas affected by mining belt.</li>
                 </ul>
-                </div>
-                
             </div>
         </section>
-        <!-- Add more sections for FAQ and Contact as needed -->
+
         <section id="contact">
             <h2>Contact</h2>
             <div class="contact-container">
@@ -76,5 +81,32 @@
     <footer>
         <p>&copy; 2024 IT Knowledge Centre. All rights reserved.</p>
     </footer>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.querySelectorAll('.carousel-images img');
+            let dots = document.querySelectorAll('.dot');
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            slideIndex -= 2;
+            showSlides();
+        });
+
+        document.querySelector('.next').addEventListener('click', showSlides);
+    </script>
 </body>
 </html>
